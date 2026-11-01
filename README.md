@@ -10,7 +10,7 @@ Evidence-backed competitor research, market intelligence, and monitoring for pro
 
 RivalScope is the web client for a competitive-intelligence workspace. A team describes a business, points research at public pages, and reads findings that stay attached to quotations and source URLs. SWOT, opportunities, PESTLE, Five Forces, and recommendations are presented as interpretation. Where a fact was not extracted, the interface says so.
 
-This repository is the frontend only. Accounts, research jobs, billing, and monitoring run in the API above. Next.js proxies browser calls from `/api/*` to that service, so the app and the API share one origin in the browser. The proxy target is `API_INTERNAL_URL`, or `http://127.0.0.1:4000` when that variable is unset. Provider secrets stay in the backend environment.
+This repository is the frontend only. Accounts, research jobs, billing, and monitoring run in the API above. Next.js proxies browser calls from `/api/*` to that service, so the app and the API share one origin in the browser. Set the server-only variable `API_INTERNAL_URL` to the live API. Provider secrets stay in the backend environment.
 
 ## Key features
 
@@ -27,11 +27,6 @@ This repository is the frontend only. Accounts, research jobs, billing, and moni
 Google sign-in, automatic source discovery, and payments appear when the API reports them as configured. Password sign-in remains available either way.
 
 ## Tech stack
-
-[![Next.js](https://img.shields.io/badge/Next.js-16-111111?logo=nextdotjs&logoColor=white)](https://nextjs.org/)
-[![React](https://img.shields.io/badge/React-19-149ECA?logo=react&logoColor=white)](https://react.dev/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind-4-06B6D4?logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
 
 | Layer | Choice |
 | --- | --- |
@@ -73,18 +68,12 @@ Workspace sections: overview, projects, research, competitors, comparisons, SWOT
 
 Node.js 22 or newer, and npm. The Docker image uses Node.js 24. The Netlify build uses Node.js 22.
 
+Set `API_INTERNAL_URL` to the live API, [https://rivalscope-api.onrender.com](https://rivalscope-api.onrender.com). Next.js reads that variable on the server. Put it in `.env.local` (`.env.example` lists the name) or export it in the shell. Client code does not read it.
+
 ```bash
 npm ci
 npm run dev
 ```
-
-Open [http://localhost:3000](http://localhost:3000). To point the proxy at an API other than `http://127.0.0.1:4000`:
-
-```bash
-cp .env.example .env.local
-```
-
-Set `API_INTERNAL_URL` in that file. It is read by the Next.js server, not by client code.
 
 ```bash
 npm run lint
@@ -98,8 +87,10 @@ npm start
 
 The image builds standalone output and listens on port 3000.
 
+Pass the live API as the `API_INTERNAL_URL` build arg.
+
 ```bash
-docker build --build-arg API_INTERNAL_URL=http://api:4000 -t rivalscope-frontend .
+docker build --build-arg API_INTERNAL_URL=https://rivalscope-api.onrender.com -t rivalscope-frontend .
 docker run --rm -p 3000:3000 rivalscope-frontend
 ```
 
