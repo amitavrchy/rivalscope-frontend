@@ -1,9 +1,11 @@
 # RivalScope
 
+**Live app:** [https://rivalscope-132.netlify.app](https://rivalscope-132.netlify.app)
+
+**Live API:** [https://rivalscope-api.onrender.com](https://rivalscope-api.onrender.com)
+
 Evidence-backed competitor research, market intelligence, and monitoring for product and strategy teams.
 
-**Live app:** [https://rivalscope-132.netlify.app](https://rivalscope-132.netlify.app)  
-**Live API:** [https://rivalscope-api.onrender.com](https://rivalscope-api.onrender.com)  
 **API source:** [github.com/amitavrchy/rivalscope-backend](https://github.com/amitavrchy/rivalscope-backend)
 
 ## Overview
