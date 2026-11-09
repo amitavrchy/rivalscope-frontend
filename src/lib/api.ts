@@ -1,7 +1,12 @@
 export class ApiError extends Error { constructor(message: string, public status: number) { super(message); } }
 export async function api<T>(path: string, data?: unknown, method = data === undefined ? 'GET' : 'POST'): Promise<T> {
-  const response = await fetch(`/api${path}`, { method, credentials: 'same-origin', cache: 'no-store', headers: { 'content-type': 'application/json' }, ...(data !== undefined ? { body: JSON.stringify(data) } : {}) });
-  const body = await response.json().catch(() => ({ message: 'The API did not return a valid response. Check that the backend is running.' }));
+  let response: Response;
+  try {
+    response = await fetch(`/api${path}`, { method, credentials: 'same-origin', cache: 'no-store', signal: AbortSignal.timeout(90_000), headers: { 'content-type': 'application/json' }, ...(data !== undefined ? { body: JSON.stringify(data) } : {}) });
+  } catch {
+    throw new ApiError(method === 'GET' ? 'The backend may be starting or unavailable. Please try again.' : 'The request could not be confirmed. Check the current state before retrying.', 0);
+  }
+  const body = await response.json().catch(() => { throw new ApiError('The backend returned an invalid response. Please try again.', response.status); });
   if (!response.ok) throw new ApiError(body.issues?.map((i: { path: string; message: string }) => `${i.path}: ${i.message}`).join('; ') || body.message || 'Request failed', response.status);
   return body as T;
 }

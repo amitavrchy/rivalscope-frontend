@@ -1,0 +1,10 @@
+import { cpSync, existsSync } from 'node:fs';
+import { resolve } from 'node:path';
+const root = resolve('.next/standalone');
+if (!existsSync(resolve(root, 'server.js'))) throw new Error('Run npm run build before starting the standalone server');
+cpSync('.next/static', resolve(root, '.next/static'), { recursive: true });
+if (existsSync('public')) cpSync('public', resolve(root, 'public'), { recursive: true });
+process.env.HOSTNAME ||= '0.0.0.0';
+const portIndex = process.argv.indexOf('--port');
+if (portIndex >= 0) process.env.PORT = process.argv[portIndex + 1];
+await import(new URL('../.next/standalone/server.js', import.meta.url));

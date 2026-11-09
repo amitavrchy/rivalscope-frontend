@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   description: "Evidence-backed competitor research, market intelligence, and monitoring for ambitious teams.",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html
       lang="en"
