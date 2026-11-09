@@ -8,7 +8,8 @@
     "start": "node scripts/start.mjs",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "test:marketing": "playwright test --config=playwright.marketing.config.ts"
   },
   "dependencies": {
     "@base-ui/react": "^1.9.0",
