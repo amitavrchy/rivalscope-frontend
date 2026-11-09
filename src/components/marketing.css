@@ -1308,6 +1308,7 @@
 .rs-landing[data-motion-paused] *,
 .rs-landing[data-motion-paused] *:before,
 .rs-landing[data-motion-paused] *:after {
+  animation-play-state: paused !important;
 }
 @media (prefers-reduced-motion: reduce) {
   .rs-landing .rs-motion-control {
@@ -1317,16 +1318,15 @@
 .rs-hero-copy {
   max-width: 1280px;
 }
-/* Decorative motion follows scroll position and reverses when scrolling back. */
+/* Radar loops independently; section parallax and the console scan follow scroll. */
 .rs-radar:before {
-  transform: rotate(var(--rs-scroll-angle, 0deg));
+  animation: rs-radar-sweep 7s linear infinite;
 }
 .rs-radar > span {
-  transform: scale(calc(0.8 + var(--rs-hero-progress, 0) * 0.6));
-  opacity: 0.8;
+  animation: rs-radar-contact 3.5s ease-in-out infinite;
 }
 .rs-radar > span:last-child {
-  transform: scale(calc(1.4 - var(--rs-hero-progress, 0) * 0.6));
+  animation-delay: 1.75s;
 }
 .rs-console:after {
   transform: translateX(var(--rs-scan-shift, 0%));
@@ -1388,4 +1388,27 @@ html:has(.rs-landing) {
 }
 html:has(.rs-landing[data-motion-paused]) {
   scroll-behavior: auto;
+}
+
+@keyframes rs-radar-sweep {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes rs-radar-contact {
+  0%,
+  100% {
+    transform: scale(0.75);
+    opacity: 0.4;
+  }
+  50% {
+    transform: scale(1.35);
+    opacity: 1;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .rs-radar:before,
+  .rs-radar > span {
+    animation: none !important;
+  }
 }

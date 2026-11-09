@@ -11,7 +11,7 @@ type ScrollItem = {
 };
 const clamp = (value: number) => Math.min(1, Math.max(0, value));
 
-/** Scroll scrubbing only: no timers, autoplay, or hidden prerendered content. */
+/** Scroll-scrubbed sections; the decorative radar runs independently in CSS. */
 export function LandingMotion() {
   const [paused, setPaused] = useState(false);
   const scheduleRef = useRef<(() => void) | null>(null);
@@ -41,8 +41,6 @@ export function LandingMotion() {
     let heroRange = 1;
     function clear() {
       items.forEach(({ element }) => element.style.removeProperty("transform"));
-      root?.style.removeProperty("--rs-hero-progress");
-      root?.style.removeProperty("--rs-scroll-angle");
       root?.style.removeProperty("--rs-scroll-shift");
       root?.style.removeProperty("--rs-scan-shift");
     }
@@ -56,8 +54,6 @@ export function LandingMotion() {
         return;
       const scroll = window.scrollY;
       const heroProgress = clamp(scroll / heroRange);
-      root.style.setProperty("--rs-hero-progress", String(heroProgress));
-      root.style.setProperty("--rs-scroll-angle", `${heroProgress * 240}deg`);
       root.style.setProperty("--rs-scroll-shift", `${heroProgress * -32}px`);
       root.style.setProperty("--rs-scan-shift", `${heroProgress * 750}%`);
       items.forEach(({ element, axis, top, range }) => {

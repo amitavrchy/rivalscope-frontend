@@ -83,7 +83,7 @@ test("existing account-token flow is retained on the public page", async ({
   await expect(page.getByLabel("New password")).toBeVisible();
 });
 
-test("motion scrubs only with scroll, reverses, pauses and respects reduced motion", async ({
+test("section motion scrubs with scroll, reverses, pauses and respects reduced motion", async ({
   page,
 }) => {
   await page.emulateMedia({ reducedMotion: "no-preference" });
@@ -93,8 +93,8 @@ test("motion scrubs only with scroll, reverses, pauses and respects reduced moti
   await page.evaluate(() => document.fonts.ready);
   const transform = () =>
     page
-      .locator(".rs-radar")
-      .evaluate((element) => getComputedStyle(element, "::before").transform);
+      .locator(".rs-hero-copy")
+      .evaluate((element) => getComputedStyle(element).transform);
   const initial = await transform();
   // Deliberately sample elapsed time to catch accidental autoplay.
   await page.waitForTimeout(180);
@@ -274,3 +274,44 @@ for (const width of [360, 1280]) {
     ).toBe(0);
   });
 }
+
+test("hero radar runs automatically while idle and honors pause and reduced motion", async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+  await page.goto("/");
+  const pause = page.getByRole("button", { name: "Pause motion", exact: true });
+  await expect(pause).toBeVisible();
+  const radar = page.locator(".rs-radar");
+  const transform = () =>
+    radar.evaluate(
+      (element) => getComputedStyle(element, "::before").transform,
+    );
+  const initial = await transform();
+  await expect.poll(transform).not.toBe(initial);
+  expect(await page.evaluate(() => scrollY)).toBe(0);
+  await pause.click();
+  await expect
+    .poll(() =>
+      radar.evaluate(
+        (element) => getComputedStyle(element, "::before").animationPlayState,
+      ),
+    )
+    .toBe("paused");
+  const stopped = await transform();
+  await page.waitForTimeout(180);
+  expect(await transform()).toBe(stopped);
+  await page
+    .getByRole("button", { name: "Resume motion", exact: true })
+    .click();
+  await expect.poll(transform).not.toBe(stopped);
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await expect
+    .poll(() =>
+      radar.evaluate(
+        (element) => getComputedStyle(element, "::before").animationName,
+      ),
+    )
+    .toBe("none");
+  await expect.poll(transform).toBe("none");
+});

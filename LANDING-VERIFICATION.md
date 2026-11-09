@@ -2,7 +2,7 @@
 
 - `npm run build`: passed; `/` is `○ (Static)`.
 - `npm run lint` and `npm run typecheck`: passed.
-- `npm run test:marketing`: 9 passed. Checks the 80% content rail at all four requested widths, no horizontal scrolling or JavaScript errors, no API requests, keyboard FAQs, visible HTML with JavaScript disabled, social metadata/image, the existing reset-token form, scroll-only motion, idle stability, reversal, pause/resume, and live reduced-motion changes.
+- `npm run test:marketing`: 10 passed. Checks the 80% content rail at all four requested widths, no horizontal scrolling or JavaScript errors, no API requests, keyboard FAQs, visible HTML with JavaScript disabled, social metadata/image, the existing reset-token form, scroll-only motion, idle stability, reversal, pause/resume, and live reduced-motion changes.
 - Chromium screenshots reviewed at 360, 768, 1280 and 1920px, including reduced-motion rendering.
 - Lighthouse 13.6.0, mobile defaults, production server: performance 100, accessibility 100, best practices 100, SEO 100. Local lab measurements, not deployed-site measurements.
 - `npm run test:e2e`: attempted; the existing suite could not start its backend without `DATABASE_URL` and `REDIS_URL`. Authenticated API integration was not verified.
@@ -15,8 +15,10 @@ The design preserves RivalScope's established teal brand in a dark intelligence-
 
 ## Scroll motion and width
 
-All primary content rails use 80% of the viewport. Radar rotation, signal scale, the hero parallax and console scan are tied directly to scroll position. Sections and cards scrub into position as they enter the viewport and reverse when scrolling up. There are no autoplay loops, animation timers or continuously running frames; layout bounds are cached and remeasured on resize and font readiness. Pause/resume and live reduced-motion changes are supported. Static HTML remains fully readable without JavaScript and no runtime dependency was added.
+All primary content rails use 80% of the viewport. The hero scanner rotates continuously with pulsing radar contacts, independently of scroll. Hero text parallax and the console scan remain tied to scroll position. Sections and cards scrub into position as they enter the viewport and reverse when scrolling up. Section motion has no autoplay loops or continuously running animation frames; layout bounds are cached and remeasured on resize and font readiness. The CSS radar loop respects Pause motion and reduced-motion preferences. Pause/resume and live reduced-motion changes are supported. Static HTML remains fully readable without JavaScript and no runtime dependency was added.
 
 ## Anchor and FAQ interactions
 
 Section anchors use native smooth scrolling with the existing URL hashes, history, and sticky-header offsets. FAQ panels animate their height over 360ms on both expansion and collapse; repeated activation reverses from the current height. Native details/summary semantics, keyboard activation, and no-JavaScript behavior are retained. Reduced-motion switches scrolling and FAQ changes to immediate behavior. The scroll-motion layout cache is refreshed after an accordion transition. Browser tests cover intermediate scroll positions, open/close animation, rapid reversal and reduced-motion behavior at 360px and 1280px.
+
+The scanner regression test verifies movement while the page is idle at scroll position zero, pause/resume, and reduced-motion behavior. Section scroll scrubbing is tested separately.
