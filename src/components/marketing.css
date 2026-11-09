@@ -18,6 +18,7 @@
   color: #edf6f7;
 }
 .rs-landing p {
+  font-size: 15px;
   color: var(--rs-muted);
   line-height: 1.8;
 }
@@ -69,7 +70,7 @@
 }
 .rs-brand > span {
   color: var(--rs-accent);
-  font-size: 11px;
+  font-size: 12px;
   letter-spacing: 1px;
   border: 1px solid #78ecd24a;
   padding: 2px 5px;
@@ -138,7 +139,7 @@
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  font-size: 11px;
+  font-size: 12px;
   letter-spacing: 1.9px;
   font-weight: 600;
   color: var(--rs-accent);
@@ -215,7 +216,7 @@
   justify-content: space-between;
   align-items: center;
   color: #a1b2bb;
-  font-size: 11px;
+  font-size: 12px;
   gap: 10px;
   background: #152028;
 }
@@ -231,7 +232,7 @@
 }
 .rs-demo-label {
   letter-spacing: 1px;
-  font-size: 9px;
+  font-size: 12px;
 }
 .rs-console-body {
   display: grid;
@@ -268,7 +269,7 @@
 }
 .rs-console-side small {
   margin: 48px 10px 10px;
-  font-size: 10px;
+  font-size: 12px;
   letter-spacing: 2px;
   color: #829da8;
 }
@@ -287,14 +288,14 @@
   margin-top: 7px;
 }
 .rs-console .rs-kicker {
-  font-size: 9px;
+  font-size: 12px;
   color: #9bafb8;
 }
 .rs-pill {
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  font-size: 9px;
+  font-size: 12px;
   letter-spacing: 0.5px;
   background: #78ecd212;
   color: var(--rs-accent);
@@ -316,7 +317,7 @@
 }
 .rs-metrics span {
   display: block;
-  font-size: 10px;
+  font-size: 12px;
   color: var(--rs-muted);
   margin-bottom: 9px;
 }
@@ -339,7 +340,7 @@
 }
 .rs-finding-title > span {
   margin-left: auto;
-  font-size: 9px;
+  font-size: 12px;
   color: var(--rs-muted);
 }
 .rs-findings article {
@@ -357,14 +358,14 @@
   margin: 10px 0 4px;
 }
 .rs-findings p {
-  font-size: 11px;
+  font-size: 14px;
 }
 .rs-source {
   display: flex;
   gap: 8px;
   align-items: center;
   margin-top: 13px;
-  font-size: 10px;
+  font-size: 12px;
   color: #b3c7cf;
 }
 .rs-source > svg {
@@ -376,7 +377,7 @@
 .rs-console figcaption {
   border-top: 1px solid var(--rs-line);
   padding: 10px 20px;
-  font-size: 10px;
+  font-size: 12px;
   color: #9fb2ba;
   text-align: center;
 }
@@ -388,7 +389,7 @@
   border-bottom: 1px solid var(--rs-line);
 }
 .rs-capabilities > span {
-  font-size: 10px;
+  font-size: 12px;
   letter-spacing: 2px;
   color: #9bafb8;
 }
@@ -462,7 +463,7 @@
   color: var(--rs-accent);
 }
 .rs-feature-top > span {
-  font-size: 9px;
+  font-size: 12px;
   letter-spacing: 1.5px;
   color: #8da7b2;
 }
@@ -482,7 +483,7 @@
   gap: 12px;
   margin-top: 25px;
   color: #789a9d;
-  font-size: 10px;
+  font-size: 12px;
   flex-wrap: wrap;
 }
 .rs-mini-flow > span {
@@ -616,7 +617,7 @@
   flex-wrap: wrap;
 }
 .rs-footer p {
-  font-size: 12px;
+  font-size: 14px;
   margin-top: 12px;
 }
 .rs-footer nav {
@@ -636,7 +637,7 @@
   border-top: 1px solid var(--rs-line);
   padding-top: 22px;
   color: #91a5af;
-  font-size: 11px;
+  font-size: 12px;
 }
 .rs-skip {
   position: fixed;
@@ -702,7 +703,7 @@
     padding: 12px;
   }
   .rs-metrics strong {
-    font-size: 11px;
+    font-size: 12px;
   }
   .rs-section {
     padding: 75px 28px;
@@ -746,7 +747,7 @@
     width: 23px;
   }
   .rs-brand > span {
-    font-size: 9px;
+    font-size: 12px;
   }
   .rs-nav-actions {
     gap: 13px;
@@ -763,14 +764,14 @@
   }
   .rs-button-small {
     padding: 8px 10px;
-    font-size: 11px;
+    font-size: 12px;
     gap: 6px;
   }
   .rs-hero {
     padding: 50px 18px 0;
   }
   .rs-kicker {
-    font-size: 9px;
+    font-size: 12px;
     letter-spacing: 1.3px;
   }
   .rs-hero h1 {
@@ -791,20 +792,20 @@
     gap: 9px;
   }
   .rs-hero-note {
-    font-size: 10px;
+    font-size: 12px;
   }
   .rs-dashboard-wrap {
     margin-top: 40px;
   }
   .rs-console-bar {
     padding: 12px;
-    font-size: 8px;
+    font-size: 12px;
   }
   .rs-console-bar > span:first-child {
     display: none;
   }
   .rs-demo-label {
-    font-size: 7px;
+    font-size: 12px;
   }
   .rs-console-side {
     display: none;
@@ -830,7 +831,7 @@
   }
   .rs-finding-title {
     padding: 12px;
-    font-size: 10px;
+    font-size: 12px;
   }
   .rs-finding-title > span {
     display: none;
@@ -842,20 +843,20 @@
     font-size: 12px;
   }
   .rs-findings p {
-    font-size: 10px;
+    font-size: 14px;
   }
   .rs-findings article:last-child {
     display: none;
   }
   .rs-console figcaption {
-    font-size: 8px;
+    font-size: 12px;
     padding: 10px;
   }
   .rs-capabilities {
     padding: 35px 18px;
   }
   .rs-capabilities > span {
-    font-size: 8px;
+    font-size: 12px;
   }
   .rs-capabilities > div {
     gap: 17px 24px;
@@ -893,7 +894,7 @@
   }
   .rs-mini-flow {
     gap: 7px;
-    font-size: 9px;
+    font-size: 12px;
   }
   .rs-mini-flow > span {
     padding: 7px;
@@ -977,12 +978,12 @@
 }
 .rs-screen-grid figcaption > span {
   margin-left: auto;
-  font-size: 8px;
+  font-size: 12px;
   letter-spacing: 1px;
   color: #a1b2bb;
 }
 .rs-matrix {
-  font-size: 10px;
+  font-size: 12px;
   border: 1px solid #304048;
   border-radius: 5px;
   overflow: hidden;
@@ -1009,7 +1010,7 @@
   color: #a1b2bb;
 }
 .rs-screen-grid figure > p {
-  font-size: 12px;
+  font-size: 14px;
   margin-top: 22px;
 }
 .rs-monitor-url {
@@ -1019,11 +1020,11 @@
   border: 1px solid #304048;
   border-radius: 5px;
   padding: 13px;
-  font-size: 11px;
+  font-size: 12px;
 }
 .rs-monitor-url > span:last-child {
   margin-left: auto;
-  font-size: 9px;
+  font-size: 12px;
   color: #a1b2bb;
 }
 .rs-monitor-diff {
@@ -1035,7 +1036,7 @@
 }
 .rs-monitor-diff > span {
   display: block;
-  font-size: 10px;
+  font-size: 12px;
   color: #a1b2bb;
   padding: 11px 14px;
 }
@@ -1055,7 +1056,7 @@
 .rs-sample-caption {
   display: block;
   color: #a1b2bb;
-  font-size: 10px;
+  font-size: 12px;
   text-align: center;
   margin-top: 20px;
 }
@@ -1075,19 +1076,19 @@
     font-size: 12px;
   }
   .rs-screen-grid figcaption > span {
-    font-size: 6px;
+    font-size: 12px;
   }
   .rs-matrix {
-    font-size: 8px;
+    font-size: 12px;
   }
   .rs-matrix span {
     padding: 12px 7px;
   }
   .rs-monitor-url {
-    font-size: 10px;
+    font-size: 12px;
   }
   .rs-monitor-url > span:last-child {
-    font-size: 8px;
+    font-size: 12px;
   }
 }
 /* Shared 80% content rail, with readable line lengths inside it. */
@@ -1298,7 +1299,7 @@
   backdrop-filter: blur(12px);
   border-radius: 24px;
   padding: 9px 14px;
-  font-size: 11px;
+  font-size: 12px;
   cursor: pointer;
   box-shadow: 0 4px 20px #0001;
 }
@@ -1370,7 +1371,7 @@ html:has(.rs-landing) {
     gap: 8px;
   }
   .rs-nav .rs-button-small {
-    font-size: 10px;
+    font-size: 12px;
     padding: 8px 10px;
     gap: 6px;
   }
@@ -1410,5 +1411,26 @@ html:has(.rs-landing[data-motion-paused]) {
   .rs-radar:before,
   .rs-radar > span {
     animation: none !important;
+  }
+}
+
+/* Readable supporting text, including nested text inside paragraphs. */
+.rs-landing small {
+  font-size: 12px;
+}
+.rs-landing p :where(a, span, strong, em, small) {
+  font-size: inherit;
+}
+@media (max-width: 600px) {
+  .rs-nav .rs-brand {
+    font-size: 14px;
+    gap: 4px;
+  }
+  .rs-nav .rs-brand > svg {
+    width: 18px;
+  }
+  .rs-nav .rs-button-small {
+    gap: 5px;
+    padding-inline: 8px;
   }
 }

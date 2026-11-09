@@ -4,7 +4,7 @@
 - `npm run lint` and `npm run typecheck`: passed.
 - `npm run test:marketing`: 10 passed. Checks the 80% content rail at all four requested widths, no horizontal scrolling or JavaScript errors, no API requests, keyboard FAQs, visible HTML with JavaScript disabled, social metadata/image, the existing reset-token form, scroll-only motion, idle stability, reversal, pause/resume, and live reduced-motion changes.
 - Chromium screenshots reviewed at 360, 768, 1280 and 1920px, including reduced-motion rendering.
-- Lighthouse 13.6.0, mobile defaults, production server: performance 100, accessibility 100, best practices 100, SEO 100. Local lab measurements, not deployed-site measurements.
+- Lighthouse 13.6.0, mobile defaults, production server: performance 97, accessibility 100, best practices 100, SEO 100. Local lab measurements, not deployed-site measurements.
 - `npm run test:e2e`: attempted; the existing suite could not start its backend without `DATABASE_URL` and `REDIS_URL`. Authenticated API integration was not verified.
 
 ## Deployment and design
@@ -22,3 +22,7 @@ All primary content rails use 80% of the viewport. The hero scanner rotates cont
 Section anchors use native smooth scrolling with the existing URL hashes, history, and sticky-header offsets. FAQ panels animate their height over 360ms on both expansion and collapse; repeated activation reverses from the current height. Native details/summary semantics, keyboard activation, and no-JavaScript behavior are retained. Reduced-motion switches scrolling and FAQ changes to immediate behavior. The scroll-motion layout cache is refreshed after an accordion transition. Browser tests cover intermediate scroll positions, open/close animation, rapid reversal and reduced-motion behavior at 360px and 1280px.
 
 The scanner regression test verifies movement while the page is idle at scroll position zero, pause/resume, and reduced-motion behavior. Section scroll scrubbing is tested separately.
+
+## Minimum text sizes
+
+Paragraphs are at least 14px and all other text is at least 12px, including mockups, badges, captions, navigation, and footer labels. Larger existing body and heading sizes are preserved. Browser tests assert computed text sizes at 360, 768, 1280 and 1920px. Chromium inspection found minimum paragraph/text sizes of 14px/12px at every width, with no horizontal text clipping or document overflow. Mobile navigation and diagram labels were adjusted to accommodate the larger text.
