@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { AccountActions } from "./account-actions";
 import "./marketing.css";
+import { LandingMotion } from "./landing-motion";
 const features = [
   {
     icon: ScanSearch,
@@ -160,6 +161,7 @@ function Dashboard() {
 export function Marketing() {
   return (
     <div className="rs-landing">
+      <LandingMotion />
       <a className="rs-skip" href="#rs-main">
         Skip to content
       </a>
@@ -185,6 +187,13 @@ export function Marketing() {
       <main id="rs-main">
         <section className="rs-hero">
           <div className="rs-hero-grid" aria-hidden="true" />
+          <div className="rs-radar" aria-hidden="true">
+            <i />
+            <i />
+            <i />
+            <span />
+            <span />
+          </div>
           <div className="rs-hero-copy">
             <span className="rs-kicker">
               <span className="rs-signal" /> YOUR MARKET DOESN’T STAND STILL
