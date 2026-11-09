@@ -1,115 +1,25 @@
-# RivalScope
+# RivalScope frontend
 
-**Live app:** [https://rivalscope-132.netlify.app](https://rivalscope-132.netlify.app)
+Next.js/React frontend for the RivalScope API. Public marketing renders without the API. Authenticated workspaces use real server responses and private in-memory React Query data with background revalidation; no private seed records are statically bundled or persisted in localStorage.
 
-**Live API:** [https://rivalscope-api.onrender.com](https://rivalscope-api.onrender.com)
+Use Node 24 and this repository's independent lockfile:
 
-Evidence-backed competitor research, market intelligence, and monitoring for product and strategy teams.
-
-**API source:** [github.com/amitavrchy/rivalscope-backend](https://github.com/amitavrchy/rivalscope-backend)
-
-## Overview
-
-RivalScope is the web client for a competitive-intelligence workspace. A team describes a business, points research at public pages, and reads findings that stay attached to quotations and source URLs. SWOT, opportunities, PESTLE, Five Forces, and recommendations are presented as interpretation. Where a fact was not extracted, the interface says so.
-
-This repository is the frontend only. Accounts, research jobs, billing, and monitoring run in the API above. Next.js proxies browser calls from `/api/*` to that service, so the app and the API share one origin in the browser. Set the server-only variable `API_INTERNAL_URL` to the live API. Provider secrets stay in the backend environment.
-
-## Key features
-
-- **Workspace.** Projects, an overview of sources and reports, evidence coverage, and a light or dark theme.
-- **Research.** Objectives, standard or deep runs, a competitor count, public URLs or web discovery, source freshness, optional countries, a credit estimate before the run starts, and a cancellable pipeline: plan, search, extract, analyze, catalog, verify, report.
-- **Evidence.** Competitor profiles, quoted findings, an evidence-backed comparison matrix, published pricing with history, and a positioning chart that plots only documented monthly prices.
-- **Monitoring and alerts.** Scheduled checks of public pages, before-and-after snapshots, alert rules, and in-app notifications.
-- **Copilot.** Questions answered from saved project evidence, with citations and stated limitations.
-- **Reports.** Export to JSON, Markdown, PDF, and Word. Expiring workspace or public links, with an optional password, open at `/shared/[token]`.
-- **Collaboration.** Invitations and roles (owner, admin, analyst, editor, viewer, billing manager), team notes, personal bookmarks, and project participants.
-- **Account and billing.** Email and password, email verification, MFA, optional Google sign-in, plans, a credit ledger, and Stripe checkout and the billing portal when an operator has configured them.
-- **Operator tools.** Integration status, workspace API keys, webhooks, notification channels, and a platform administration console for plans, credits, jobs, flags, and audit data.
-
-Google sign-in, automatic source discovery, and payments appear when the API reports them as configured. Password sign-in remains available either way.
-
-## Tech stack
-
-| Layer | Choice |
-| --- | --- |
-| Framework | Next.js 16 App Router, Cache Components, partial prefetching |
-| UI | React 19, Tailwind CSS 4, shadcn/ui, Lucide |
-| Data | TanStack Query, route handlers proxied with a rewrite in `next.config.ts` |
-| Forms | React Hook Form and Zod |
-| Charts | Recharts |
-| Type | Local Geist, Geist Mono, and Noto Sans Bengali. Interface text uses a 14px minimum. |
-
-## Project structure
-
-One Next.js application. Application code is under `src/`. Toolchain and deploy files stay at the repository root, which is where Next.js, npm, Docker, and Netlify expect them.
-
-```
-src/app/            routes, global styles, favicon
-src/components/     marketing, auth, workspace, and UI
-src/fonts/          local licensed fonts
-src/lib/            typed API client
-public/             static files
-next.config.ts      /api proxy; standalone output outside Netlify
-netlify.toml        Netlify build command and publish directory
-Dockerfile          production image (Node.js 24)
-components.json     shadcn/ui
-.env.example        optional API_INTERNAL_URL
-```
-
-| Path | Purpose |
-| --- | --- |
-| `/` | Marketing site |
-| `/login`, `/register` | Sign in and create a workspace |
-| `/workspace` | Redirects to `/workspace/overview` |
-| `/workspace/[section]` | Authenticated workspace |
-| `/shared/[token]` | Shared report |
-
-Workspace sections: overview, projects, research, competitors, comparisons, SWOT and opportunities, monitoring, alerts, copilot, reports, team, billing, integrations, settings, and administration.
-
-## Getting started
-
-Node.js 22 or newer, and npm. The Docker image uses Node.js 24. The Netlify build uses Node.js 22.
-
-Set `API_INTERNAL_URL` to the live API, [https://rivalscope-api.onrender.com](https://rivalscope-api.onrender.com). Next.js reads that variable on the server. Put it in `.env.local` (`.env.example` lists the name) or export it in the shell. Client code does not read it.
-
-```bash
+```sh
 npm ci
 npm run dev
-```
-
-```bash
-npm run lint
 npm run build
-npm start
+npm run start
+npm run typecheck
+npm run lint
+npm audit
 ```
 
-`npm run build` typechecks the project and writes the production output. `npx tsc --noEmit` passes once Next.js has generated `.next/types` (a build or a dev session does that). On a completely fresh tree, before those files exist, `tsc` cannot see the generated `LayoutProps` type.
+The frontend forwards `/api` to the server-only `API_INTERNAL_URL` build destination. Set it before building; rebuild after changing it. Local development defaults to the local backend. Netlify builds reject a missing/non-HTTPS destination. Never put provider/database secrets into frontend variables.
 
-### Docker
+For Netlify, import this repository with base/package directory at its root, build `npm run build`, publish `.next`, Node 24 and the adapter configured in `netlify.toml`. `NETLIFY` selects adapter-compatible output; Docker/local builds use standalone output. `scripts/start.mjs` serves that standalone build with static assets. Configure the backend's exact HTTPS origin allowlist to the actual frontend domain. Same-origin proxy requests retain HttpOnly, Secure production, SameSite Lax cookies and Origin checks.
 
-The image builds standalone output and listens on port 3000.
+Loading states explain backend startup delays. Fetches time out with an honest error; writes are never automatically retried or reported successful on a network failure. Successful login clears the prior in-memory query cache.
 
-Pass the live API as the `API_INTERNAL_URL` build arg.
+`npm run test:e2e` runs the real API/proxy/browser flow after both production builds. It starts the sibling backend and this frontend on a dedicated local port, using an isolated database/Redis supplied through `DATABASE_URL`, `REDIS_URL`, `APP_ORIGIN`, `ALLOWED_ORIGINS`, `ENCRYPTION_KEY`. The config uses a local SMTP queue configuration; it does not run a mail-delivery worker. Never use production credentials/database for these tests. Browser artifacts are ignored because traces can contain synthetic credentials/session data.
 
-```bash
-docker build --build-arg API_INTERNAL_URL=https://rivalscope-api.onrender.com -t rivalscope-frontend .
-docker run --rm -p 3000:3000 rivalscope-frontend
-```
-
-## Deployment
-
-The live app is on Netlify, published with the Netlify CLI. `netlify.toml` is the source of those settings:
-
-| Setting | Value |
-| --- | --- |
-| Build command | `npm ci && npx next build` |
-| Publish directory | `.next` |
-| Node.js | 22 |
-| Plugin | `@netlify/plugin-nextjs` |
-
-`next.config.ts` leaves `output` unset when `NETLIFY` is set, which the Next.js plugin provides, and uses `standalone` for Docker and other hosts. This repository layout matches that deploy. No Netlify dashboard change is required.
-
-## Author
-
-**Amitav Roy Chowdhury**  
-[github.com/amitavrchy](https://github.com/amitavrchy)
+Deployment approval, persistent services, provider credentials, seed provenance and full verification are documented in the sibling backend's `DEPLOYMENT.md`, `SEED-DATA.md` and this repository's [verification report](VERIFICATION.md). Historical hosting URLs are not verified current-account deployments. No public deployment was performed.
