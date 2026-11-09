@@ -17,6 +17,7 @@ import {
 import { AccountActions } from "./account-actions";
 import "./marketing.css";
 import { LandingMotion } from "./landing-motion";
+import { LandingInteractions } from "./landing-interactions";
 const features = [
   {
     icon: ScanSearch,
@@ -162,6 +163,7 @@ export function Marketing() {
   return (
     <div className="rs-landing">
       <LandingMotion />
+      <LandingInteractions />
       <a className="rs-skip" href="#rs-main">
         Skip to content
       </a>
